@@ -1,9 +1,14 @@
 # This Python program reads in PayPal X DevZone blog and document feed items
 # saved from a prior execution of 'devzone.harvest.py' in the CSV file
-# 'devzone.harvest.csv'.
+# 'devzone.harvest.csv'.  It sorts these items by topics they mention.
 #
-# It then saves out a master file containing all the article and blog post items
+# This program writes out a master file containing all the article and blog post items
 # minus the description (contents) as that is no longer needed after topic filtering.
+# It saves out a topic specific file with items mentioning that topic for each
+# topic specified in the 'devzone.topics.csv' input file.  It also writes out
+# a 'devzone.topics.items.csv' file containing the number of items mentioning
+# each of the specified topics (this file can be sorted and graphed to show
+# how well each topic is being covered or not).
 #
 # Copyright (c) 2011, Bill Day; for more information see http://billday.com
 
@@ -47,30 +52,38 @@ csvallitems.close()
 # 
 # For each topic, we write out a CSV file containing only those items
 # whose 'title' or 'description' contained the topic's text string.
+# We output the number of items added to each topic specific CSV
+# output file in another output file, 'topics.items.csv'.
 #
 csvtopics = open("devzone.topics.csv", "rb")
 topicreader = csv.reader(csvtopics, dialect='excel')
+csvnumitems = open(devzonedir+"devzone.topics.items.csv", "wb")
+numitemswriter = csv.writer(csvnumitems, dialect='excel')
+
+print "-----"
+print "Beginning topic filtering..."
+print "-----"
 
 for topic in topicreader:
     currenttopic = topic[0]
     topicfile = (currenttopic.replace(' ', '')).replace('.', 'dot')
     csvcurrenttopic = open(devzonedir+"devzone.analysis.topic."+topicfile+".csv", "wb")
-    csvtopic = csv.DictWriter(csvcurrenttopic, fieldnames=['pubDate', 'articleOrBlog', 'title', 'link', 'hitCount'], restval='', extrasaction='ignore', dialect='excel')
+    topicwriter = csv.DictWriter(csvcurrenttopic, fieldnames=['pubDate', 'articleOrBlog', 'title', 'link', 'hitCount'], restval='', extrasaction='ignore', dialect='excel')
     csvinput.seek(0)
+    items = 0
     for row in itemreader:
-#        print "Topic =", currenttopic
-#        print "Title =", row["title"]
-#        print "Description =", row['description']
         if re.search(currenttopic,row['title']) or re.search(currenttopic,row['description']):
-            csvtopic.writerow(row)
+            topicwriter.writerow(row)
+            items += 1
+    numitemswriter.writerow([currenttopic, items])
+    print topicfile, "topic contains", items, "items"
     csvcurrenttopic.close()
 
-#for row in itemreader:
-#    print row
-#     save back out master file without the description
+print "-----"
+print "Topic filtering DONE"
 
-
-# Close the harvest input and topic list files when completely finished.
+# Close any remaining open files when finished.
 #
+csvnumitems.close()
 csvtopics.close()
 csvinput.close()
