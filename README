@@ -1,0 +1,7 @@
+The 'devzone.harvest.py' and 'devzone.analysis.py' Python scripts can be used for analysis of PayPal X.com DevZone blog post and document feeds.
+
+Use them with their supporting topic list 'devzone.topics.csv' to harvest, topic filter, and output DevZone feed data to CSV formatted files for further analysis elsewhere.
+
+For more information, please refer to the documentation in the comments of each script file and also the Bill Day's two part PayPal X Developer Network article series,
+"Divining DevZone Insight from Filtered Feeds and Deep Pages".  The first part of this series is available now at:
+http://bit.ly/fKdio9
