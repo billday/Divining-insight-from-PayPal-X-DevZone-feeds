@@ -32,7 +32,7 @@ devzonedir = "DevZone.Generated/"
 #        results in no documents being returned, some kind of
 #        PayPal X.com server issue, maybe a config problem?
 #
-articlequery = "select * from rss where url in ('https://www.x.com/community/feeds/documents?community=2133&numItems=38')";
+articlequery = "select * from rss where url in ('https://www.x.com/community/feeds/documents?community=2133&numItems=38')"
 articles = y.execute(articlequery)
 print "-----"
 print "Harvested", articles.count, "articles and book excerpts.\n"
@@ -49,7 +49,7 @@ print "Harvested", articles.count, "articles and book excerpts.\n"
 #
 # NOTE:  'numItems' is set bigger than expected number to catch all.
 #
-blogpostsquery = "select * from rss where url in ('https://www.x.com/people/ptwobrussell/blog/feeds/posts?numItems=20', 'https://www.x.com/people/billday/blog/feeds/posts?numItems=20', 'https://www.x.com/people/travis/blog/feeds/posts?numItems=20', 'https://www.x.com/blogs/Ethan/feeds/posts?numItems=20', 'https://www.x.com/community/feeds/blogs?community=2133&numItems=1000')";
+blogpostsquery = "select * from rss where url in ('https://www.x.com/people/ptwobrussell/blog/feeds/posts?numItems=20', 'https://www.x.com/people/billday/blog/feeds/posts?numItems=20', 'https://www.x.com/people/travis/blog/feeds/posts?numItems=20', 'https://www.x.com/blogs/Ethan/feeds/posts?numItems=20', 'https://www.x.com/community/feeds/blogs?community=2133&numItems=1000')"
 posts = y.execute(blogpostsquery)
 print "Harvested", posts.count, "blog posts.\n"
 
