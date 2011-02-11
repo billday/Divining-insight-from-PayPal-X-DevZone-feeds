@@ -4,3 +4,5 @@ Use them with their supporting topic list 'devzone.topics.csv' to harvest, topic
 
 For more information, please refer to the documentation in the comments of each script file and also the Bill Day's two part PayPal X Developer Network article series, "Divining DevZone Insight from Filtered Feeds and Deep Pages".  The first part of this series is available now at:
 http://bit.ly/fKdio9
+
+All source code is licensed under the Simplified BSD License: http://www.opensource.org/licenses/bsd-license.php
